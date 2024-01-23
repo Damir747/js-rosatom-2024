@@ -5,10 +5,10 @@ const m = 7;
 // схема
 const arr = [
 	['I', 'B', '.', '.', 'B', 'B', '.'],
-	['X', 'I', '.', '.', '.', '.', '.'],
+	['X', 'I', '.', '.', '.', 'B', 'B'],
 	['.', 'B', '.', '.', 'B', 'B', '.'],
 	['.', 'I', 'B', '.', '.', 'B', '.'],
-	['.', '.', '.', '.', 'I', '.', 'I']
+	['.', '.', '.', '.', 'I', '.', '.']
 ];
 
 // находим координаты единственной 'X' (iX, jX) и всех точек 'I'
@@ -74,7 +74,7 @@ const calcWay = (indexI) => {
 					if (y > 0 && !visited[x][y - 1]) {
 						queue[len + 1].push([x, y - 1]);
 					}
-					if (y < arr[0].length - 1 && !visited[x][y + 1]) {
+					if (y < arr[x].length - 1 && !visited[x][y + 1]) {
 						queue[len + 1].push([x, y + 1]);
 					}
 				}
@@ -85,6 +85,8 @@ const calcWay = (indexI) => {
 
 	// если очередь X не пуста и если очередь I не пуста
 	while (queueX[countX].length > 0 && queueI[countI].length > 0) {
+		// ищем соседей и увеличиваем уровень (соседей)
+		// поочередно ищем соседей для 'X' и 'I
 		if (countX === countI) {
 			friends(queueX, countX);
 			countX++;
@@ -92,6 +94,7 @@ const calcWay = (indexI) => {
 			friends(queueI, countI);
 			countI++;
 		}
+		// ищем пересечения среди соседей
 		let x = 0;
 		while (x < queueX[countX].length) {
 			let y = 0;

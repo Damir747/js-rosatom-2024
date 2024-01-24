@@ -1,16 +1,24 @@
 // F. Задача про провода
 // размеры схемы
-const n = 5;
-const m = 7;
+// const n = 5;
+// const m = 7;
 // схема
-const arr = [
-	['I', 'B', '.', '.', 'B', 'B', '.'],
-	['X', 'I', '.', '.', '.', 'B', 'B'],
-	['.', 'B', '.', '.', 'B', 'B', '.'],
-	['.', 'I', 'B', '.', '.', 'B', '.'],
-	['.', '.', '.', '.', 'I', '.', '.']
-];
+// const arr = [
+// 	['I', 'B', '.', '.', 'B', 'B', '.'],
+// 	['X', 'I', '.', '.', '.', 'B', 'B'],
+// 	['.', 'B', '.', '.', 'B', 'B', '.'],
+// 	['.', 'I', 'B', '.', '.', 'B', '.'],
+// 	['.', '.', '.', '.', 'I', '.', '.']
+// ];
+const n = 50;
+const m = 50;
+const arr = Array.from(Array(n), () => Array.from(Array(m), () => '.'));
+arr[0][0] = 'I';
+arr[1][m - 1] = 'I';
+arr[n - 1][1] = 'I';
+arr[n - 1][m - 1] = 'X';
 
+console.time('task-f');
 // находим координаты единственной 'X' (iX, jX) и всех точек 'I'
 let iX = -1;
 let jX = -1;
@@ -121,7 +129,7 @@ for (let k = 0; k < arrI.length; k++) {
 	}
 	result.push(res);
 }
-console.log(result);
+console.log('Длины:', ...result);
 
 // найти максимальную длину
 let max = 0;
@@ -130,11 +138,12 @@ for (let k = 0; k < result.length; k++) {
 		max = result[k];
 	}
 }
-console.log(max);
+console.log('Максимум:', max);
 max = max * arrI.length;
 // проверка на одинаковую длину (четность/нечетность)
 for (let i = 0; i < arrI.length; i++) {
 	result[i] = result[i] % 2;
 }
 // если в массиве только четные (0) или только нечетные (1), тогда вывод длины, иначе -1
-console.log([...new Set(result)].length === 1 ? max : -1);
+console.log('Ответ:', [...new Set(result)].length === 1 ? max : -1);
+console.timeEnd('task-f');
